@@ -93,6 +93,7 @@ Output/Screenshot:<img src="Screenshots/Eval.png" width="800">
 ## Observability evidence 
 
 Screenshots:<img src="Screenshots/Observability.png" width="800">
+            <img src="Screenshots/Observability.2.png" width="800">
 
 ## Prisma Studio
 
