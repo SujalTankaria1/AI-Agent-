@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id            String        @id @default(cuid())
+  date          DateTime
+  amount        Decimal
+  description   String
+  category      String
+  merchant      String
+  merchantAlias MerchantAlias? @relation(fields: [merchantAliasId], references: [id])
+  merchantAliasId String?
+  createdAt     DateTime      @default(now())
+
+  @@index([date])
+  @@index([category])
+  @@index([merchant])
+  @@index([merchantAliasId])
+}
+
+model MerchantAlias {
+  id          String        @id @default(cuid())
+  canonical   String
+  aliases     String[]
+  createdAt   DateTime      @default(now())
+  transactions Transaction[]
+
+  @@unique([canonical])
+}
+
+model Fund {
+  id          String            @id @default(cuid())
+  name        String
+  category    String
+  navHistory  FundNavHistory[]
+  holdings    Holding[]
+  createdAt   DateTime          @default(now())
+}
+
+model FundNavHistory {
+  id        String   @id @default(cuid())
+  fundId    String
+  fund      Fund     @relation(fields: [fundId], references: [id])
+  date      DateTime
+  value     Decimal
+  createdAt DateTime @default(now())
+
+  @@index([fundId])
+  @@index([date])
+}
+
+model Holding {
+  id          String   @id @default(cuid())
+  fundId      String
+  fund        Fund     @relation(fields: [fundId], references: [id])
+  fundName    String
+  units       Decimal
+  purchaseNav Decimal
+  purchaseDate DateTime
+  createdAt   DateTime @default(now())
+}
+
+model AgentLog {
+  id          String   @id @default(cuid())
+  requestId   String   @unique
+  question    String
+  toolsUsed   String[]
+  sqlQueries  String[]
+  latency     Int
+  success     Boolean
+  createdAt   DateTime @default(now())
+
+  @@index([requestId])
+  @@index([createdAt])
+}
+
+model EvalResult {
+  id          String   @id @default(cuid())
+  testName    String
+  passed      Boolean
+  createdAt   DateTime @default(now())
+}
+
+model AsyncJob {
+  id        String   @id @default(cuid())
+  type      String
+  status    String
+  input     String
+  result    String?
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([status])
+}
