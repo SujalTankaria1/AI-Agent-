@@ -42,6 +42,7 @@ Set your `DATABASE_URL` in `.env`:
 DATABASE_URL="postgresql://user:password@localhost:5432/tara?schema=public"
 ```
 
+
 ### Run Migrations
 
 ```bash
@@ -87,6 +88,15 @@ To run the evaluation suite:
 ```bash
 npm run eval
 ```
+Output/Screenshot:<img src="Screenshots/Eval.png" width="800">
+
+## Observability evidence 
+
+Screenshots:<img src="Screenshots/Observability.png" width="800">
+
+## Prisma Studio
+
+Screenshots:<img src="Screenshots/Prisma_Studio.png" width="800">
 
 ## Deployment
 
@@ -104,3 +114,15 @@ npm run eval
 3. Add a PostgreSQL database (or use Neon)
 4. Set environment variables
 5. Deploy with build command `npm run build` and start command `npm start`
+
+
+## My Deployment 
+
+### Railway
+
+# Live Deployment Link
+https://ai-agent-production-76b9.up.railway.app
+
+# Screenshot
+
+<img src="Screenshots/Deployment.png" width="800">
