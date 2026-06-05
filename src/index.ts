@@ -23,6 +23,14 @@ app.post("/ask", async (req, res) => {
     res.status(400).json({ error: "Invalid request" });
   }
 });
+app.get("/", (req, res) => {
+  res.json({
+    status: "online",
+    service: "Tara Finance Research Agent",
+    endpoint: "/ask"
+  });
+});
+
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
